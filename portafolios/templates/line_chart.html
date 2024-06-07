@@ -1,0 +1,54 @@
+<canvas id="{{ chart_id }}" width="800" height="400"></canvas>
+<script>
+    const data_line_chart = {{ data|safe }};
+
+    const labels_line_chart = data_line_chart["portafolio 1"].map(item => item.fecha);
+    const datasets_line_chart = [];
+
+    for (const [key, portafolio] of Object.entries(data_line_chart)) {
+        const dataset = {
+            label: key,
+            data: portafolio.map(item => item.v_t),
+            fill: false,
+            borderColor: key === "portafolio 1" ? 'rgba(75, 192, 192, 1)' : 'rgba(153, 102, 255, 1)'
+        };
+        datasets_line_chart.push(dataset);
+    }
+
+    const chartData_line_chart = {
+        labels: labels_line_chart,
+        datasets: datasets_line_chart
+    };
+
+    const config_line_chart = {
+        type: 'line',
+        data: chartData_line_chart,
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: '{{ title }}',
+                    font: {
+                        size: 24
+                    }
+                }
+            },
+            interaction: {
+                intersect: false,
+            },
+            scales: {
+                x: {
+                    stacked: false
+                },
+                y: {
+                    stacked: false
+                }
+            }
+        }
+    };
+
+    const myChart_line = new Chart(
+        document.getElementById('{{ chart_id }}'),
+        config_line_chart
+    );
+</script>

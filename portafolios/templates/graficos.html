@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacked Area Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <h2>Selecciona las fechas para ver los gráficos correspondientes.</h2>
+
+    <h3>Gráficos caso base</h3>
+    {% include "date_form.html" with url="http://localhost:8000/graficos/" idDateForm="formNormal" idFechaInicio="fechaInicio1" idFechaFin="fechaFin1" %}
+
+    <h3>Gráficos con Compra y Venta</h3>
+    {% include "date_form.html" with url="http://localhost:8000/graficos_compra_venta/" idDateForm="formCompraVenta" idFechaInicio="fechaInicio2" idFechaFin="fechaFin2"%}
+
+    <h1>Información relacionada a los portafolios</h1>
+    {% include 'stacked_area_chart.html' with title="Distribución de Activos del Portafolio 1" data=data_portafolio_1 chart_id="stackedAreaChart1" %}
+    <hr>
+    {% include 'stacked_area_chart.html' with title="Distribución de Activos del Portafolio 2" data=data_portafolio_2 chart_id="stackedAreaChart2" %}
+    <hr>
+    {% include 'line_chart.html' with title="Comparación de Valores de Portafolios" data=data_line chart_id="lineChart" %}
+
+
+</body>
+
+</html>

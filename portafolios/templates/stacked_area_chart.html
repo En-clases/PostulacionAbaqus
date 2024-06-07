@@ -1,0 +1,59 @@
+<canvas id="{{ chart_id }}" width="800" height="400"></canvas>
+<script>
+    const data_{{ chart_id }} = {{ data|safe }};
+
+    const labels_{{ chart_id }} = data_{{ chart_id }}.map(item => item.fecha);
+    const datasets_{{ chart_id }} = {};
+    data_{{ chart_id }}.forEach(item => {
+        for (let [key, value] of Object.entries(item.w_i_t)) {
+            if (!datasets_{{ chart_id }}[key]) {
+                datasets_{{ chart_id }}[key] = {
+                    label: key,
+                    data: [],
+                    fill: true
+                };
+            }
+            datasets_{{ chart_id }}[key].data.push(value);
+        }
+    });
+
+    const chartData_{{ chart_id }} = {
+        labels: labels_{{ chart_id }},
+        datasets: Object.values(datasets_{{ chart_id }})
+    };
+
+    const config_{{ chart_id }} = {
+        type: 'line',
+        data: chartData_{{ chart_id }},
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: '{{ title }}',
+                    font: {
+                        size: 24
+                    }
+                },
+                filler: {
+                    propagate: true
+                }
+            },
+            interaction: {
+                intersect: false,
+            },
+            scales: {
+                x: {
+                    stacked: true
+                },
+                y: {
+                    stacked: true
+                }
+            }
+        }
+    };
+
+    const myChart_{{ chart_id }} = new Chart(
+        document.getElementById('{{ chart_id }}'),
+        config_{{ chart_id }}
+    );
+</script>

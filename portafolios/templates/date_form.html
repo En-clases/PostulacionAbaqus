@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Fechas</title>
+</head>
+<body>
+    <h4>Selecciona las fechas</h4>
+    <form id="{{ idDateForm }}" action="" method="get">
+        <label for="fecha_inicio">Fecha de Inicio:</label>
+        <input type="date" id="{{ idFechaInicio }}" name="fecha_inicio" required>
+        <br>
+        <label for="fecha_fin">Fecha Final:</label>
+        <input type="date" id="{{ idFechaFin }}" name="fecha_fin" required>
+        <br>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        document.getElementById("{{ idDateForm }}").onsubmit = function(event) {
+            event.preventDefault();
+            var fechaInicio = document.getElementById("{{ idFechaInicio }}").value;
+            var fechaFin = document.getElementById("{{ idFechaFin }}").value;
+            var url = "{{ url }}" + "?fecha_inicio=" + fechaInicio + "&fecha_fin=" + fechaFin;
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>
